@@ -6,7 +6,7 @@ int	is_ingroup(t_stack	*stack, int	*group)
 	int	i;
 
 	i = stack->size - 1;
-	while (i > 0)
+	while (i >= 0)
 	{
 		if (stack->values[i] >= group[0] && stack->values[i] <= group[1])
 			return (1);
@@ -54,17 +54,23 @@ int	get_member_to_push_and_sort(t_stack	*stack_a, t_stack *stack_b, int *group)
 		i--;
 	index = i;
 	first[0] = getfirst(stack_b, stack_a, limits, index);
-	while (--i >= 0)
+	
+	while (i >= 0)
 	{
 		first[1] = getfirst(stack_b, stack_a, limits, i);
+		// printf("fiiirst[0] : %d\n",first[0]);
+		// printf("fiiirst[1] : %d\n",first[1]);
 		if (stack_b->values[i] >= group[0] && stack_b->values[i] <= group[1]
 			&& (first[0] > first[1] || (first[0] == first[1]
 					&& stack_b->values[index] < stack_b->values[i])))
 		{
 			index = i;
 			first[0] = first[1];
+			
 		}
+		i--;
 	}
+	//printf("index : %d\n",index);
 	return (index);
 }
 
@@ -74,14 +80,14 @@ int	get_member_to_push(t_stack *stack, int *group)
 	int	first;
 	int	second;
 	int	i;
-
+	//printf("ana f get_member_to_push\t");
 	i = stack->size - 1;
 	while (i >= 0 && (stack->values[i] < group[0]
 			|| stack->values[i] > group[1]))
 		i--;
 	index = i;
 	first = calcfirst(index, stack->size, 2);
-	while (--i >= 0)
+	while (i >= 0)
 	{
 		if (stack->values[i] >= group[0] && stack->values[i] <= group[1])
 		{
@@ -93,6 +99,7 @@ int	get_member_to_push(t_stack *stack, int *group)
 				first = second;
 			}
 		}
+		i--;
 	}
 	return (index);
 }

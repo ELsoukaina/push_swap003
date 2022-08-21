@@ -6,7 +6,7 @@ void	fillgroupes(int **groupes, int size, int min, int max)
 	int	i;
 
 	i = 1;
-	printf("max is %d\n",max);
+	//printf("max is %d\n",max);
 	if (size >= 1)
 	{
 		groupes[i][0] = min;
@@ -83,7 +83,9 @@ void	push_groupes(t_stack *stack_a, t_stack *stack_b, int *groupe)
 
 	while (stack_a->size > 2 && is_ingroup(stack_a, groupe))
 	{
+		//printf("ana dkhalt push groupes\n");
 		index = get_member_to_push(stack_a, groupe);
+		//printf("index is : %d \n",index);
 		value = stack_a->values[index];
 		while (index > (stack_a->size - 1) / 2
 			&& stack_a->values[stack_a->size - 1] != value)
@@ -93,4 +95,5 @@ void	push_groupes(t_stack *stack_a, t_stack *stack_b, int *groupe)
 			(void)(rra(stack_a) && ft_putstr_fd("rra\n", 1));
 		(void)(pb(stack_a, stack_b) && ft_putstr_fd("pb\n", 1));
 	}
+	//(void)(pb(stack_a, stack_b) && ft_putstr_fd("pb\n", 1));
 }

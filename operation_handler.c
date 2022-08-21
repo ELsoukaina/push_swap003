@@ -39,8 +39,8 @@ int	shifttop(t_stack *stack)
 
 void	delete(t_stack *stack_b, int **groups, int i)
 {
-	free(stack_b->values);
-	free(stack_b);
+	// free(stack_b->values);
+	// free(stack_b);
 	free(groups[i]);
 	free(groups);
 }

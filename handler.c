@@ -14,6 +14,12 @@ void	handle_error(t_stack *stack_a, t_stack *stack_b)
 	exit(1);
 }
 
+void	parsingErr()
+{
+	ft_putstr_fd("Error !", 1);
+	exit(1);
+}
+
 t_stack	*init_b(t_stack *stack_a, t_stack *stack_b)
 {
 	stack_b = malloc(sizeof(t_stack *));

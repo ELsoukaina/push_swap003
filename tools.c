@@ -1,6 +1,4 @@
-
 #include "push_swap.h"
-
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
@@ -58,41 +56,43 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-static int	lonmax(char *str, int si)
+int	ft_isdigit(int d)
 {
-	if (ft_strncmp(str, "9223372036854775807", 19) > 0 && si)
-		return (-1);
-	else if (ft_strncmp(str, "9223372036854775808", 19) > 0 && !(si))
-		return (0);
-	else
+	if (d >= 48 && d <= 57)
 		return (1);
+	return (0);
+}
+
+void	minmax(long int res, int sign)
+{
+	res = sign * res;
+	if (res > 2147483647 || res < -2147483648)
+		parsingErr();
 }
 
 int	ft_atoi(const char *str)
 {
-	int	result;
-	int	i;
-	int	si;
-	int	counter;
-	int	bg;
+	long int	i[3];
 
-	result = 0;
-	counter = 0;
-	i = 0;
-	si = 1;
-	while (str[i] == '\t' || str[i] == '\r' || str[i] == '\v' || str[i] == ' '
-		|| str[i] == '\f' || str[i] == '\n')
-		i++;
-	if (str[i] == '-')
-		si = -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	bg = i;
-	while (str[i] >= '0' && str[i] <= '9')
+	i[0] = 0;
+	i[1] = 1;//res
+	i[2] = 0;//sign
+	while (str[i[0]] == ' ' || str[i[0]] == '\f' || str[i[0]] == '\t'
+		|| str[i[0]] == '\v' || str[i[0]] == '\n' || str[i[0]] == '\r')
+		i[0]++;
+	if (str[i[0]] == '-')
+		i[1] = -1;
+	if((str[i[0]] == '+' || str[i[0]] == '-') && str[i[0]+1] == '\0')
+		parsingErr();
+	else if (str[i[0]] == '+' || str[i[0]] == '-')
+		i[0]++;
+	while (str[i[0]] != '\0')
 	{
-		result = result * 10 + (str[i++] - '0');
-		if ((counter++) >= 19 && lonmax((char *)&str[bg], si) != 1)
-			return (0);
+		if (ft_isdigit(str[i[0]]) == 0)
+			parsingErr();
+		i[2] = i[2] * 10 + str[i[0]] - '0';
+		i[0]++;
 	}
-	return (result * si);
+	minmax(i[2], i[1]);
+	return (i[2]*i[1]);
 }

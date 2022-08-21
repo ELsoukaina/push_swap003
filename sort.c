@@ -88,9 +88,9 @@ void	fullsort(t_stack *stack_a, t_stack *stack_b)
 	int	amount;
 	int	i;
 
-	if (stack_a->size > 20 && stack_a->size < 75)
+	if (stack_a->size < 75)
 		amount = 1;
-	else if (stack_a->size >=75 && stack_a->size < 100)
+	else if (stack_a->size < 100)
 		amount = 2;
 	else
 		amount = 3;
@@ -101,12 +101,21 @@ void	fullsort(t_stack *stack_a, t_stack *stack_b)
 		push_groupes(stack_a, stack_b, groups[i]);
 		i++;
 	}
+	//printf("b - stack_b size is : %d\n", stack_b->size);
+
+	// i = 0;
+	// while(i < stack_b->size)
+	// {
+	// 	printf("value %d : %d\t", i, stack_b->values[i]);
+	// 	i++;
+	// }
 	i = groups[0][0];
 	while (i > 0)
 	{
 		push_and_sort_group(stack_a, stack_b, groups[i]);
 		free(groups[i--]);
 	}
-	delete(stack_b, groups, i);
+	//exit(0);
+	//delete(stack_b, groups, i);
 	sort_a(stack_a);
 }
